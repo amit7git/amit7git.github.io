@@ -32,12 +32,26 @@ print("Hello", name)
 
   async function runPython() {
     let pyodide = await pyodideReady;
-    let code = document.getElementById("code").value;
-    let result = pyodide.runPython(code);
-    document.getElementById("output").textContent =
-      result === undefined ? "Code executed!" : result;
+
+    const code = document.getElementById("code").value;
+    const output = document.getElementById("output");
+
+    try {
+      pyodide.runPython(`
+        import sys
+        from io import StringIO
+        sys.stdout = StringIO()
+      `);
+
+      pyodide.runPython(code);
+
+      let result = pyodide.runPython("sys.stdout.getvalue()");
+      output.textContent = result;
+
+    } catch (err) {
+      output.textContent = err;
+    }
   }
 </script>
-
 </body>
 </html>
