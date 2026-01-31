@@ -18,6 +18,10 @@ print("Hello from GitHub Pages!")
 name = input("What is your name? ")
 print("Hello", name)
 </textarea>
+<input id="city" placeholder="Which city did you grow up in?" />
+<br><br>
+<input id="pet" placeholder="What is your pet name?" />
+<br><br>
 
 <br><br>
 <button onclick="runPython()">Run Code</button>
@@ -25,25 +29,24 @@ print("Hello", name)
 <h3>Output:</h3>
 <pre id="output"></pre>
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
-
 <script>
   let pyodideReady = loadPyodide();
 
   async function runPython() {
     let pyodide = await pyodideReady;
 
-    const code = document.getElementById("code").value;
+    const city = document.getElementById("city").value;
+    const pet = document.getElementById("pet").value;
     const output = document.getElementById("output");
 
     try {
       pyodide.runPython(`
-        import sys
-        from io import StringIO
-        sys.stdout = StringIO()
-      `);
+        city = "${city}"
+        pet = "${pet}"
 
-      pyodide.runPython(code);
+        print("Welcome to the Band Name Generator")
+        print("Your Band name could be:", city, pet)
+      `);
 
       let result = pyodide.runPython("sys.stdout.getvalue()");
       output.textContent = result;
@@ -53,5 +56,6 @@ print("Hello", name)
     }
   }
 </script>
+
 </body>
 </html>
