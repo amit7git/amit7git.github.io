@@ -1,61 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Python Online Runner</title>
+  <title>Python Terminal Runner</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    textarea { width: 100%; font-size: 16px; }
-    button { padding: 10px 15px; font-size: 16px; }
-    pre { background: #f4f4f4; padding: 10px; }
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 16px;
+      font-family: monospace;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    #terminal {
+      background: black;
+      color: #00ff00;
+      padding: 10px;
+      height: 260px;
+      overflow-y: auto;
+      font-family: monospace;
+      margin-top: 15px;
+      white-space: pre-wrap;
+    }
+
+    #terminalInput {
+      width: 100%;
+      font-family: monospace;
+      font-size: 16px;
+      padding: 5px;
+      margin-top: 5px;
+      background: #111;
+      color: #00ff00;
+      border: none;
+      outline: none;
+    }
   </style>
 </head>
 <body>
 
-<h2>Run Python Code Online</h2>
+<h2>Python Online Terminal</h2>
 
-<textarea id="code" rows="10">
-print("Hello from GitHub Pages!")
-name = input("What is your name? ")
-print("Hello", name)
+<textarea id="code" rows="8">
+print("Welcome to the Band Name Generator")
+city = input("Which city did you grow up in? ")
+pet = input("What is your pet name? ")
+print("Your Band name could be:", city, pet)
 </textarea>
 
-<br><br>
+<br>
 <button onclick="runPython()">Run Code</button>
 
-<h3>Output:</h3>
-<pre id="output"></pre>
+<div id="terminal"></div>
+<input id="terminalInput" placeholder="Type input and press Enter" />
 
-<!-- 🔴 THIS WAS MISSING -->
 <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 
 <script>
-  let pyodideReady = loadPyodide();
+let pyodideReady = loadPyodide();
+let inputQueue = [];
+let waitingForInput = false;
 
-  async function runPython() {
-    let pyodide = await pyodideReady;
-    const output = document.getElementById("output");
-    const code = document.getElementById("code").value;
+const terminal = document.getElementById("terminal");
+const terminalInput = document.getElementById("terminalInput");
 
-    try {
-      pyodide.runPython(`
-import sys
-from js import prompt
-from io import StringIO
-
-def input(prompt_text=""):
-    return prompt(prompt_text)
-
-sys.stdout = StringIO()
-      `);
-
-      pyodide.runPython(code);
-
-      output.textContent = pyodide.runPython("sys.stdout.getvalue()");
-
-    } catch (err) {
-      output.textContent = err;
-    }
+terminalInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const value = terminalInput.value;
+    terminal.innerHTML += "> " + value + "\n";
+    inputQueue.push(value);
+    terminalInput.value = "";
+    waitingForInput = false;
   }
+});
+
+async function runPython() {
+  terminal.innerHTML = "";
+  inputQueue = [];
+  waitingForInput = false;
+
+  const pyodide = await pyodideReady;
+
+  pyodide.globals.set("js_input", () => {
+    waitingForInput = true;
+    while (waitingForInput) {}
+    return inputQueue.shift();
+  });
+
+  pyodide.globals.set("print_js", (text) => {
+    terminal.innerHTML += text;
+    terminal.scrollTop = terminal.scrollHeight;
+  });
+
+  try {
+    pyodide.runPython(`
+import sys
+
+def input(prompt=""):
+    print(prompt, end="")
+    return js_input()
+
+class Stdout:
+    def write(self, text):
+        print_js(text)
+    def flush(self):
+        pass
+
+sys.stdout = Stdout()
+    `);
+
+    pyodide.runPython(document.getElementById("code").value);
+
+  } catch (err) {
+    terminal.innerHTML += "\\nError: " + err;
+  }
+}
 </script>
 
 </body>
