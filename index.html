@@ -2,79 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amit | 100 Days of Python</title>
 
+  <!-- JetBrains Mono Font -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg: #0f172a;
+      --card: #020617;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --border: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      line-height: 1.6;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
 
     header {
+      padding: 4rem 1.5rem;
       text-align: center;
-      padding: 4rem 1rem;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
+      background: linear-gradient(135deg, #020617, #0f172a);
+      border-bottom: 1px solid var(--border);
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: clamp(2rem, 5vw, 2.7rem);
       margin-bottom: 0.5rem;
     }
 
     header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .counter {
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      color: var(--primary);
     }
 
     section {
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
-      padding: 3rem 1rem;
+      padding: 3rem 1.5rem;
     }
 
     h2 {
-      color: #60a5fa;
+      font-size: 1.5rem;
       margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1rem;
     }
 
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: 1fr;
       gap: 1.5rem;
+      margin-top: 2rem;
     }
 
     .card {
-      background: #020617;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
       padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
     .card h3 {
       margin-top: 0;
-      color: #93c5fd;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin-bottom: 1rem;
     }
 
     .card a {
-      color: #38bdf8;
+      display: inline-block;
       text-decoration: none;
-      font-weight: 500;
-    }
-
-    .card a:hover {
-      text-decoration: underline;
+      font-weight: 600;
+      background: var(--primary);
+      color: #020617;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
     }
 
     footer {
       text-align: center;
-      padding: 2rem;
-      background: #020617;
-      font-size: 0.9rem;
-      opacity: 0.8;
+      padding: 2rem 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (min-width: 768px) {
+      .projects {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .projects {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   </style>
 </head>
@@ -83,66 +143,74 @@
 
   <header>
     <h1>Hi, I'm Amit 👋</h1>
-    <p>100 Days of Python • Learning • Building • Growing</p>
+    <p>100 Days of Python • Building One Project at a Time</p>
+    <div class="counter">
+      👀 Visitors: <span id="visitor-count">Loading...</span>
+    </div>
   </header>
 
   <section>
     <h2>👨‍💻 About Me</h2>
     <p>
-      I'm currently working on a <strong>100 Days of Python Challenge</strong>,
-      building projects every day to strengthen my programming fundamentals,
-      logic, and problem-solving skills.
+      I’m completing a <strong>100 Days of Python Challenge</strong>, building real projects
+      to sharpen my programming, logic, and problem-solving skills.
     </p>
   </section>
 
   <section>
-    <h2>🐍 Python Projects</h2>
+    <h2>🐍 Featured Projects</h2>
 
     <div class="projects">
       <div class="card">
         <h3>Day 1 – Band Name Generator</h3>
-        <p>Intro project using input, variables, and string manipulation.</p>
+        <p>Beginner project using input, variables, and string manipulation.</p>
         <a href="https://github.com/amit7git/Python--Day-1-Band_Name_Generator" target="_blank">
-          View on GitHub →
+          View on GitHub
         </a>
       </div>
 
       <div class="card">
         <h3>Day 3 – Treasure Island</h3>
-        <p>Text-based adventure game using conditionals and logic.</p>
+        <p>Text-based adventure game using conditionals and user choices.</p>
         <a href="https://github.com/amit7git" target="_blank">
-          View Project →
+          View on GitHub
         </a>
       </div>
 
       <div class="card">
         <h3>Day 4 – Rock Paper Scissors</h3>
-        <p>Classic game built in Python and JavaScript.</p>
-        <a href="https://github.com/amit7git/Python--Day-4-Rock_Paper_Scissors" target="_blank">
-          View Project →
+        <p>Classic game implemented with Python logic.</p>
+        <a href="https://github.com/amit7git" target="_blank">
+          View on GitHub
         </a>
       </div>
 
       <div class="card">
         <h3>Day 5 – Password Generator</h3>
-        <p>Generates strong and sequence passwords using loops and randomization.</p>
+        <p>Strong and structured passwords using loops and randomization.</p>
         <a href="https://github.com/amit7git" target="_blank">
-          View Project →
+          View on GitHub
         </a>
       </div>
     </div>
   </section>
 
-  <section>
-    <h2>🔗 Links</h2>
-    <p>
-      GitHub: <a href="https://github.com/amit7git" target="_blank">github.com/amit7git</a>
-    </p>
-  </section>
-
   <footer>
-    © 2026 Amit • Built with ❤️ using HTML & CSS
+    © 2026 Amit •
+    <a href="https://github.com/amit7git" target="_blank">GitHub</a>
   </footer>
+
+  <!-- Visitor Counter Script -->
+  <script>
+    fetch('https://api.countapi.xyz/hit/amit7git/homepage')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('visitor-count').innerText = data.value;
+      })
+      .catch(() => {
+        document.getElementById('visitor-count').innerText = '—';
+      });
+  </script>
 
 </body>
 </html>
