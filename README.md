@@ -26,7 +26,7 @@ Here are some of my projects hosted using GitHub Pages:
 - 🔹 **Python Day 2 – Tip Calculator**  
   https://amit7git.github.io/Python--Day-2-Tip_Calulator/
 
-*(More projects coming soon!)*
+----(More projects coming soon!)----
 
 ---
 
