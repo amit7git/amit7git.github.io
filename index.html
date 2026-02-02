@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amit | 100 Days of Python</title>
+  <title>Amit | Python Developer Portfolio</title>
 
-  <!-- JetBrains Mono Font -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0f172a;
+      --bg: #0b1120;
+      --surface: #020617;
       --card: #020617;
       --text: #e5e7eb;
-      --muted: #94a3b8;
-      --primary: #38bdf8;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
       --border: #1e293b;
     }
 
@@ -25,109 +27,172 @@
     body {
       margin: 0;
       font-family: 'JetBrains Mono', monospace;
-      background: var(--bg);
+      background: radial-gradient(circle at top, #0f172a, var(--bg));
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.8;
+      letter-spacing: 0.2px;
     }
 
+    /* ---------- HERO ---------- */
     header {
-      padding: 4rem 1.5rem;
+      max-width: 1100px;
+      margin: auto;
+      padding: 5rem 1.5rem 4rem;
       text-align: center;
-      background: linear-gradient(135deg, #020617, #0f172a);
-      border-bottom: 1px solid var(--border);
     }
 
     header h1 {
-      font-size: clamp(2rem, 5vw, 2.7rem);
-      margin-bottom: 0.5rem;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.5px;
     }
 
     header p {
+      max-width: 700px;
+      margin: auto;
       font-size: 1.05rem;
       color: var(--muted);
     }
 
-    .counter {
-      margin-top: 1.2rem;
-      font-size: 0.9rem;
-      color: var(--primary);
+    .cta-group {
+      margin-top: 2.2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
+    .btn {
+      padding: 0.7rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #020617;
+      border-color: transparent;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px var(--accent-soft);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---------- SECTIONS ---------- */
     section {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
-      padding: 3rem 1.5rem;
+      padding: 3.5rem 1.5rem;
     }
 
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-bottom: 1rem;
-      color: var(--primary);
+      color: var(--accent);
     }
 
-    p {
+    .about {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .about ul {
+      padding-left: 1.2rem;
       color: var(--muted);
-      font-size: 1rem;
     }
 
+    .about li {
+      margin-bottom: 0.6rem;
+    }
+
+    /* ---------- PROJECTS ---------- */
     .projects {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.6rem;
       margin-top: 2rem;
     }
 
     .card {
-      background: var(--card);
+      background: linear-gradient(180deg, #020617, #020617);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
+      border-radius: 16px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
     .card h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      margin: 0 0 0.6rem;
+      font-size: 1.25rem;
     }
 
     .card p {
-      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
     }
 
     .card a {
-      display: inline-block;
-      text-decoration: none;
-      font-weight: 600;
-      background: var(--primary);
-      color: #020617;
-      padding: 0.55rem 1.1rem;
+      align-self: flex-start;
+      padding: 0.55rem 1.2rem;
       border-radius: 8px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
       font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
     }
 
+    .card a:hover {
+      background: var(--accent);
+      color: #020617;
+    }
+
+    /* ---------- FOOTER ---------- */
     footer {
-      text-align: center;
-      padding: 2rem 1rem;
       border-top: 1px solid var(--border);
-      font-size: 0.85rem;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
       color: var(--muted);
+      font-size: 0.85rem;
     }
 
     footer a {
-      color: var(--primary);
+      color: var(--accent);
       text-decoration: none;
       font-weight: 600;
     }
 
+    /* ---------- RESPONSIVE ---------- */
     @media (min-width: 768px) {
       .projects {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .about {
+        grid-template-columns: 1.2fr 1fr;
       }
     }
 
@@ -141,76 +206,88 @@
 
 <body>
 
+  <!-- HERO -->
   <header>
     <h1>Hi, I'm Amit 👋</h1>
-    <p>100 Days of Python • Building One Project at a Time</p>
-    <div class="counter">
-      👀 Visitors: <span id="visitor-count">Loading...</span>
+    <p>
+      Python enthusiast building <strong>100 real-world projects</strong> to master programming,
+      logic, and problem-solving — one day at a time.
+    </p>
+
+    <div class="cta-group">
+      <a href="https://github.com/amit7git" class="btn btn-primary" target="_blank">
+        View GitHub
+      </a>
+      <a href="#projects" class="btn btn-secondary">
+        Explore Projects
+      </a>
     </div>
   </header>
 
+  <!-- ABOUT -->
   <section>
     <h2>👨‍💻 About Me</h2>
-    <p>
-      I’m completing a <strong>100 Days of Python Challenge</strong>, building real projects
-      to sharpen my programming, logic, and problem-solving skills.
-    </p>
+    <div class="about">
+      <p>
+        I’m currently following the <strong>100 Days of Python</strong> challenge to build
+        consistent coding habits and strong fundamentals. My focus is on writing clean,
+        readable code and understanding how things work under the hood.
+      </p>
+
+      <ul>
+        <li>🐍 Python fundamentals & logic building</li>
+        <li>🎮 Games & interactive CLI projects</li>
+        <li>🔁 Daily practice & version control with Git</li>
+        <li>📦 GitHub-focused workflow</li>
+      </ul>
+    </div>
   </section>
 
-  <section>
-    <h2>🐍 Featured Projects</h2>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>🚀 Projects</h2>
 
     <div class="projects">
       <div class="card">
         <h3>Day 1 – Band Name Generator</h3>
-        <p>Beginner project using input, variables, and string manipulation.</p>
+        <p>Beginner-friendly project using input, variables, and string manipulation.</p>
         <a href="https://github.com/amit7git/Python--Day-1-Band_Name_Generator" target="_blank">
-          View on GitHub
+          View Repo
         </a>
       </div>
 
       <div class="card">
         <h3>Day 3 – Treasure Island</h3>
-        <p>Text-based adventure game using conditionals and user choices.</p>
+        <p>Interactive text-based adventure game driven by conditional logic.</p>
         <a href="https://github.com/amit7git" target="_blank">
-          View on GitHub
+          View Repo
         </a>
       </div>
 
       <div class="card">
         <h3>Day 4 – Rock Paper Scissors</h3>
-        <p>Classic game implemented with Python logic.</p>
+        <p>Classic game implementation using Python logic and randomization.</p>
         <a href="https://github.com/amit7git" target="_blank">
-          View on GitHub
+          View Repo
         </a>
       </div>
 
       <div class="card">
         <h3>Day 5 – Password Generator</h3>
-        <p>Strong and structured passwords using loops and randomization.</p>
+        <p>Generates strong and structured passwords using loops and randomness.</p>
         <a href="https://github.com/amit7git" target="_blank">
-          View on GitHub
+          View Repo
         </a>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    © 2026 Amit •
+    © 2026 Amit • Built with HTML & CSS •
     <a href="https://github.com/amit7git" target="_blank">GitHub</a>
   </footer>
 
-  <!-- Visitor Counter Script -->
-  <script>
-    fetch('https://api.countapi.xyz/hit/amit7git/homepage')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('visitor-count').innerText = data.value;
-      })
-      .catch(() => {
-        document.getElementById('visitor-count').innerText = '—';
-      });
-  </script>
-
 </body>
 </html>
+
